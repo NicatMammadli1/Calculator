@@ -1,0 +1,141 @@
+import java.util.Scanner;
+
+public class Calculator
+{
+    public static double circleArea(double radius)
+    {
+        return Math.PI * (radius * radius);
+    }
+    public static double rectangleArea(double length, double width)
+    {
+        return length * width;
+    }
+    public static double squareArea(double side)
+    {
+        return side * side;
+    }
+    public static void addition(int a, int b)
+    {
+        int sumForAddition =  a + b;
+        System.out.print(sumForAddition);
+    }
+    public static void subtraction(int a, int b)
+    {
+        int sumForSubstraction =  a - b;
+        System.out.print(sumForSubstraction);
+    }
+    public static void multiplication(int a, int b)
+    {
+        int sumForMultiplication =  a *  b;
+        System.out.print(sumForMultiplication);
+    }
+    public static void division(int a, int b)
+    {
+        if(b==0)
+        {
+            System.out.print("not valid");
+        }
+        else 
+        {
+            double sumForDivision =  (double)a / b;
+            System.out.print(sumForDivision);
+        }
+    }
+public static void main(String[]args)
+    {
+        Scanner scnr = new Scanner(System.in);
+        
+        boolean continueProgram = true;
+        
+        while(continueProgram)
+        {
+            System.out.print("\nCalculator\n"+
+                            "1. Geometry\n"+
+                            "2. Arithmetic\n"+
+                            "3. Exit the program\n");
+                            
+            int choice = scnr.nextInt();
+            
+            switch(choice)
+            {
+                case 1:
+                    System.out.print("\nAreas of Geometric Shapes\n"+
+                                    "1. Circle\n"+
+                                    "2. Rectangle\n"+
+                                    "3. Square\n");
+                                    
+                    int geometryChoice = scnr.nextInt();
+                    
+                    switch(geometryChoice)
+                    {
+                        case 1:
+                            System.out.print("Enter radius: ");
+                            double radius = scnr.nextDouble();
+                            System.out.printf("Area of Circle: %.2f\n", circleArea(radius));
+                            break;
+                        
+                        case 2:
+                            System.out.print("Enter length: \n");
+                            double length = scnr.nextDouble();
+                            System.out.print("Enter width: \n");
+                            double width = scnr.nextDouble();
+                            System.out.printf("Area of Rectangle is: %.2f\n", rectangleArea(length, width));
+                            break;
+                        
+                        case 3:
+                            System.out.print("Enter side: \n");
+                            double side = scnr.nextDouble();
+                            System.out.printf("Area of Square is: %.2f", squareArea(side));
+                            break;
+                        
+                        default:
+                            System.out.print("Invalid");
+                    }
+                    break;
+                
+                case 2:
+                    System.out.print("\nArithmetic Opereations\n"+
+                                    "1. Addition\n"+
+                                    "2. Substraction\n"+
+                                    "3. Multiplication\n"+
+                                    "4. Division\n");
+                    
+                    int arithmeticChoice = scnr.nextInt();
+                    
+                    if(arithmeticChoice >=1 && arithmeticChoice <=4)
+                    {
+                        System.out.print("Enter first number: \n");
+                        int a = scnr.nextInt();
+                        
+                        System.out.print("Enter second number: \n");
+                        int b = scnr.nextInt();
+                        switch(arithmeticChoice)
+                    {
+                            case 1: addition(a,b); break;
+                            case 2: subtraction(a,b); break;
+                            case 3: multiplication(a,b); break;
+                            case 4: division(a,b); break;
+                    }
+                }
+                else
+                {
+                    System.out.println("Invalid");
+                }
+                break;
+                
+                case 3:
+                    continueProgram = false;
+                    
+                    System.out.print("Thank you");
+                    
+                    break;
+                    
+                    default:
+                    
+                    System.out.print("Invalid");
+                    
+            }
+        }
+        scnr.close();
+    }
+}
