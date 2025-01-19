@@ -1,214 +1,380 @@
 import java.util.Scanner;
 
-public class Calculator
+public class Calculator 
 {
-    public static double circleArea(double radius)
+
+    public static double circleArea(double radius) 
     {
-        return Math.PI * (radius * radius);
-    }
-    public static double rectangleArea(double length, double width)
-    {
-        return length * width;
-    }
-    public static double squareArea(double side)
-    {
-        return side * side;
-    }
-    public static double cylinderArea(double radius, double height)
-    {
-        return 2 * Math.PI * radius * height + 2 * Math.PI * (radius * radius);
-    }
-    public static double coneArea(double radius, double height)
-    {
-        double hcone = height * height;
-        double rcone = radius * radius;
-        return Math.PI * radius * (radius + Math.sqrt(hcone + rcone));
-    }
-    public static void addition(int a, int b)
-    {
-        int sumForAddition =  a + b;
-        System.out.print(sumForAddition);
-    }
-    public static void subtraction(int a, int b)
-    {
-        int sumForSubstraction =  a - b;
-        System.out.print(sumForSubstraction);
-    }
-    public static void multiplication(int a, int b)
-    {
-        int sumForMultiplication =  a *  b;
-        System.out.print(sumForMultiplication);
-    }
-    public static void division(int a, int b)
-    {
-        if(b==0)
+        try 
         {
-            System.out.print("not valid");
-        }
-        else 
+            if (radius < 0) {
+                throw new IllegalArgumentException("Radius cannot be negative");
+            }
+            return Math.PI * (radius * radius);
+        } catch (IllegalArgumentException e) 
         {
-            double sumForDivision =  (double)a / b;
-            System.out.print(sumForDivision);
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
         }
     }
-    public static void powerOf(double a, double b)
+
+    public static double rectangleArea(double length, double width) 
     {
-        double sumPowerOf = Math.pow(a,b);
-        System.out.print(sumPowerOf);
-    }
-    public static double naturalLog(double x, double base)
-    {
-        if(base<=0)
+        try 
         {
-            System.out.print("Error");
+            if (length < 0 || width < 0) 
+            {
+                throw new IllegalArgumentException("Length and width cannot be negative");
+            }
+            return length * width;
+        } catch (IllegalArgumentException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
         }
-        return Math.log(x) / Math.log(base);
     }
-    public static double percentage(double a, double b)
+
+    public static double squareArea(double side) 
     {
-        return (a * b) / 100;
-        
-    }
-public static void main(String[]args)
-    {
-        Scanner scnr = new Scanner(System.in);
-        
-        boolean continueProgram = true;
-        
-        while(continueProgram)
+        try 
         {
-            System.out.print("\nCalculator\n"+
-                            "1. Geometry\n"+
-                            "2. Arithmetic\n"+
-                            "3. Natural Log\n"+
-                            "4. Percentage\n"+
-                            "5. Exit the program\n");
-                            
-            int choice = scnr.nextInt();
-            
-            switch(choice)
+            if (side < 0) 
+            {
+                throw new IllegalArgumentException("Side length cannot be negative");
+            }
+            return side * side;
+        } catch (IllegalArgumentException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
+        }
+    }
+
+    public static double cylinderArea(double radius, double height) 
+    {
+        try 
+        {
+            if (radius < 0 || height < 0) 
+            {
+                throw new IllegalArgumentException("Radius and height cannot be negative");
+            }
+            return 2 * Math.PI * radius * height + 2 * Math.PI * (radius * radius);
+        } catch (IllegalArgumentException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
+        }
+    }
+
+    public static double coneArea(double radius, double height) 
+    {
+        try 
+        {
+            if (radius < 0 || height < 0) 
+            {
+                throw new IllegalArgumentException("Radius and height cannot be negative");
+            }
+            double hcone = height * height;
+            double rcone = radius * radius;
+            return Math.PI * radius * (radius + Math.sqrt(hcone + rcone));
+        } catch (IllegalArgumentException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
+        }
+    }
+
+
+    public static double addition(double a, double b) 
+    {
+        return a + b;
+    }
+
+    public static double subtraction(double a, double b) 
+    {
+        return a - b;
+    }
+
+    public static double multiplication(double a, double b) 
+    {
+        return a * b;
+    }
+
+    public static double division(double a, double b) 
+    {
+        try 
+        {
+            if (b == 0) 
+            {
+                throw new ArithmeticException("Division by zero is not allowed");
+            }
+            return a / b;
+        } catch (ArithmeticException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
+        }
+    }
+
+    public static double powerOf(double a, double b) 
+    {
+        return Math.pow(a, b);
+    }
+
+    public static double naturalLog(double x, double base) 
+    {
+        try {
+            if (base <= 0 || x <= 0) 
+            {
+                throw new IllegalArgumentException("Both x and base must be positive numbers");
+            }
+            return Math.log(x) / Math.log(base);
+        } catch (IllegalArgumentException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
+        }
+    }
+
+    public static double percentage(double a, double b) 
+    {
+        try 
+        {
+            if (b < 0) 
+            {
+                throw new IllegalArgumentException("Percentage cannot be negative");
+            }
+            return (a * b) / 100;
+        } catch (IllegalArgumentException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+            return Double.NaN;
+        }
+    }
+
+    private static double getValidDoubleInput(Scanner scnr, String prompt) 
+    {
+        while (true) 
+        {
+            try 
+            {
+                System.out.print(prompt);
+                return scnr.nextDouble();
+            } catch (java.util.InputMismatchException e) 
+            {
+                System.out.println("Error: Please enter a valid number");
+                scnr.nextLine(); 
+            }
+        }
+    }
+
+
+    private static void handleGeometry(Scanner scnr) 
+    {
+        System.out.print("\nAreas of Geometric Shapes\n" +
+                "1. Circle\n" +
+                "2. Rectangle\n" +
+                "3. Square\n" +
+                "4. Cylinder\n" +
+                "5. Cone\n");
+
+        try 
+        {
+            int geometryChoice = scnr.nextInt();
+            double result;
+
+            switch (geometryChoice) 
             {
                 case 1:
-                    System.out.print("\nAreas of Geometric Shapes\n"+
-                                    "1. Circle\n"+
-                                    "2. Rectangle\n"+
-                                    "3. Square\n"+
-                                    "4. Cylinder\n"+
-                                    "5. Cone\n");
-                                    
-                    int geometryChoice = scnr.nextInt();
-                    
-                    switch(geometryChoice)
+                    double radius = getValidDoubleInput(scnr, "Enter radius: ");
+                    result = circleArea(radius);
+                    if (!Double.isNaN(result)) 
                     {
-                        case 1:
-                            System.out.print("Enter radius: ");
-                            double radius = scnr.nextDouble();
-                            
-                            System.out.printf("Area of Circle: %.2f\n", circleArea(radius));
-                            break;
-                        
-                        case 2:
-                            System.out.print("Enter length: \n");
-                            double length = scnr.nextDouble();
-                            
-                            System.out.print("Enter width: \n");
-                            double width = scnr.nextDouble();
-                            
-                            System.out.printf("Area of Rectangle is: %.2f\n", rectangleArea(length, width));
-                            break;
-                        
-                        case 3:
-                            System.out.print("Enter side: \n");
-                            double side = scnr.nextDouble();
-                            
-                            System.out.printf("Area of Square is: %.2f", squareArea(side));
-                            break;
-                        
-                        case 4:
-                            System.out.print("Enter radius: \n");
-                            double radiusOfCylinder = scnr.nextDouble();
-                            
-                            System.out.print("Enter height: \n");
-                            double heightOfCylinder = scnr.nextDouble();
-                            
-                            System.out.printf("Area of a Cylinder is: %.2f", cylinderArea(radiusOfCylinder, heightOfCylinder));
-                            break;
-                        case 5: 
-                            System.out.print("Enter radius: \n");
-                            double radiusOfCone = scnr.nextDouble();
-                            
-                            System.out.print("Enter height: \n");
-                            double heightOfCone = scnr.nextDouble();
-                            
-                            System.out.printf("Area of a Cone is: %.2f", coneArea(radiusOfCone, heightOfCone));
-                            break;
-                            
-                        default:
-                            System.out.print("Invalid");
+                        System.out.printf("Area of Circle: %.2f\n", result);
                     }
                     break;
-                
+
                 case 2:
-                    System.out.print("\nArithmetic Opereations\n"+
-                                    "1. Addition\n"+
-                                    "2. Substraction\n"+
-                                    "3. Multiplication\n"+
-                                    "4. Division\n");
-                    
-                    int arithmeticChoice = scnr.nextInt();
-                    
-                    if(arithmeticChoice >=1 && arithmeticChoice <=4)
+                    double length = getValidDoubleInput(scnr, "Enter length: ");
+                    double width = getValidDoubleInput(scnr, "Enter width: ");
+                    result = rectangleArea(length, width);
+                    if (!Double.isNaN(result)) 
                     {
-                        System.out.print("Enter first number: \n");
-                        int a = scnr.nextInt();
-                        
-                        System.out.print("Enter second number: \n");
-                        int b = scnr.nextInt();
-                        switch(arithmeticChoice)
-                    {
-                            case 1: addition(a,b); break;
-                            case 2: subtraction(a,b); break;
-                            case 3: multiplication(a,b); break;
-                            case 4: division(a,b); break;
-                            case 5: powerOf(a,b); break;
+                        System.out.printf("Area of Rectangle: %.2f\n", result);
                     }
-                }
-                else
-                {
-                    System.out.println("Invalid");
-                }
-                break;
-                
+                    break;
+
                 case 3:
-                    System.out.print("Enter x: \n");
-                    double x = scnr.nextDouble();
-                    
-                    System.out.print("Enter base: \n");
-                    double base = scnr.nextDouble();
-                    
-                    System.out.printf("Log is: %.2f", naturalLog(x, base));
+                    double side = getValidDoubleInput(scnr, "Enter side: ");
+                    result = squareArea(side);
+                    if (!Double.isNaN(result)) 
+                    {
+                        System.out.printf("Area of Square: %.2f\n", result);
+                    }
                     break;
-                
+
                 case 4:
-                    System.out.print("Enter a: \n");
-                    double a = scnr.nextDouble();
-                    
-                    System.out.print("Enter b: \n");
-                    double b = scnr.nextDouble();
-                    
-                    System.out.printf("%.2f percent of %.2f is: %.2f",b,a, percentage(a,b));
+                    double cylinderRadius = getValidDoubleInput(scnr, "Enter radius: ");
+                    double cylinderHeight = getValidDoubleInput(scnr, "Enter height: ");
+                    result = cylinderArea(cylinderRadius, cylinderHeight);
+                    if (!Double.isNaN(result)) 
+                    {
+                        System.out.printf("Area of Cylinder: %.2f\n", result);
+                    }
                     break;
+
                 case 5:
-                    continueProgram = false;
-                    
-                    System.out.print("Thank you");
-                    
+                    double coneRadius = getValidDoubleInput(scnr, "Enter radius: ");
+                    double coneHeight = getValidDoubleInput(scnr, "Enter height: ");
+                    result = coneArea(coneRadius, coneHeight);
+                    if (!Double.isNaN(result)) 
+                    {
+                        System.out.printf("Area of Cone: %.2f\n", result);
+                    }
                     break;
-                    
+
+                default:
+                    System.out.println("Invalid");
+            }
+        } catch (java.util.InputMismatchException e) 
+        {
+            System.out.println("Error: Please enter a valid number");
+            scnr.nextLine();
+        }
+    }
+
+    private static void handleArithmetic(Scanner scnr) 
+    {
+        System.out.print("\nArithmetic Operations\n" +
+                "1. Addition\n" +
+                "2. Subtraction\n" +
+                "3. Multiplication\n" +
+                "4. Division\n" +
+                "5. Power\n");
+
+        try 
+        {
+            int arithmeticChoice = scnr.nextInt();
+            if (arithmeticChoice >= 1 && arithmeticChoice <= 5) 
+            {
+                double a = getValidDoubleInput(scnr, "Enter first number: ");
+                double b = getValidDoubleInput(scnr, "Enter second number: ");
+                double result;
+
+                switch (arithmeticChoice) 
+                {
+                    case 1:
+                        result = addition(a, b);
+                        System.out.printf("%.2f + %.2f = %.2f\n", a, b, result);
+                        break;
+                    case 2:
+                        result = subtraction(a, b);
+                        System.out.printf("%.2f - %.2f = %.2f\n", a, b, result);
+                        break;
+                    case 3:
+                        result = multiplication(a, b);
+                        System.out.printf("%.2f * %.2f = %.2f\n", a, b, result);
+                        break;
+                    case 4:
+                        result = division(a, b);
+                        if (!Double.isNaN(result)) {
+                            System.out.printf("%.2f / %.2f = %.2f\n", a, b, result);
+                        }
+                        break;
+                    case 5:
+                        result = powerOf(a, b);
+                        System.out.printf("%.2f ^ %.2f = %.2f\n", a, b, result);
+                        break;
+                }
+            } else 
+            {
+                System.out.println("Invalid");
+            }
+        } catch (java.util.InputMismatchException e) 
+        {
+            System.out.println("Error");
+            scnr.nextLine();
+        }
+    }
+
+    private static void handleNaturalLog(Scanner scnr) 
+    {
+        try 
+        {
+            double x = getValidDoubleInput(scnr, "Enter x: ");
+            double base = getValidDoubleInput(scnr, "Enter base: ");
+            double result = naturalLog(x, base);
+            if (!Double.isNaN(result)) 
+            {
+                System.out.printf("Log base %.2f of %.2f = %.2f\n", base, x, result);
+            }
+        } catch (java.util.InputMismatchException e) 
+        {
+            System.out.println("Error");
+            scnr.nextLine();
+        }
+    }
+
+    private static void handlePercentage(Scanner scnr) 
+    {
+        try 
+        {
+            double a = getValidDoubleInput(scnr, "Enter the number: ");
+            double b = getValidDoubleInput(scnr, "Enter the percentage: ");
+            double result = percentage(a, b);
+            if (!Double.isNaN(result)) 
+            {
+                System.out.printf("%.2f%% of %.2f = %.2f\n", b, a, result);
+            }
+        } catch (java.util.InputMismatchException e) 
+        {
+            System.out.println("Error");
+            scnr.nextLine(); 
+        }
+    }
+
+    public static void main(String[] args) 
+    {
+        Scanner scnr = new Scanner(System.in);
+        boolean continueProgram = true;
+
+        while (continueProgram) 
+        {
+            System.out.print("\nCalculator\n" +
+                    "1. Geometry\n" +
+                    "2. Arithmetic\n" +
+                    "3. Natural Log\n" +
+                    "4. Percentage\n" +
+                    "5. Exit the program\n");
+
+            try 
+            {
+                int choice = scnr.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        handleGeometry(scnr);
+                        break;
+                    case 2:
+                        handleArithmetic(scnr);
+                        break;
+                    case 3:
+                        handleNaturalLog(scnr);
+                        break;
+                    case 4:
+                        handlePercentage(scnr);
+                        break;
+                    case 5:
+                        continueProgram = false;
+                        System.out.println("Thank you!");
+                        break;
                     default:
-                    
-                    System.out.print("Invalid");
-                    
+                        System.out.println("Invalid");
+                }
+            } catch (java.util.InputMismatchException e) 
+            {
+                System.out.println("Error");
+                scnr.nextLine();
             }
         }
         scnr.close();
