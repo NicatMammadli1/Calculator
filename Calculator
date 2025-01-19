@@ -14,6 +14,16 @@ public class Calculator
     {
         return side * side;
     }
+    public static double cylinderArea(double radius, double height)
+    {
+        return 2 * Math.PI * radius * height + 2 * Math.PI * (radius * radius);
+    }
+    public static double coneArea(double radius, double height)
+    {
+        double hcone = height * height;
+        double rcone = radius * radius;
+        return Math.PI * radius * (radius + Math.sqrt(hcone + rcone));
+    }
     public static void addition(int a, int b)
     {
         int sumForAddition =  a + b;
@@ -41,6 +51,24 @@ public class Calculator
             System.out.print(sumForDivision);
         }
     }
+    public static void powerOf(double a, double b)
+    {
+        double sumPowerOf = Math.pow(a,b);
+        System.out.print(sumPowerOf);
+    }
+    public static double naturalLog(double x, double base)
+    {
+        if(base<=0)
+        {
+            System.out.print("Error");
+        }
+        return Math.log(x) / Math.log(base);
+    }
+    public static double percentage(double a, double b)
+    {
+        return (a * b) / 100;
+        
+    }
 public static void main(String[]args)
     {
         Scanner scnr = new Scanner(System.in);
@@ -52,7 +80,9 @@ public static void main(String[]args)
             System.out.print("\nCalculator\n"+
                             "1. Geometry\n"+
                             "2. Arithmetic\n"+
-                            "3. Exit the program\n");
+                            "3. Natural Log\n"+
+                            "4. Percentage\n"+
+                            "5. Exit the program\n");
                             
             int choice = scnr.nextInt();
             
@@ -62,7 +92,9 @@ public static void main(String[]args)
                     System.out.print("\nAreas of Geometric Shapes\n"+
                                     "1. Circle\n"+
                                     "2. Rectangle\n"+
-                                    "3. Square\n");
+                                    "3. Square\n"+
+                                    "4. Cylinder\n"+
+                                    "5. Cone\n");
                                     
                     int geometryChoice = scnr.nextInt();
                     
@@ -71,23 +103,46 @@ public static void main(String[]args)
                         case 1:
                             System.out.print("Enter radius: ");
                             double radius = scnr.nextDouble();
+                            
                             System.out.printf("Area of Circle: %.2f\n", circleArea(radius));
                             break;
                         
                         case 2:
                             System.out.print("Enter length: \n");
                             double length = scnr.nextDouble();
+                            
                             System.out.print("Enter width: \n");
                             double width = scnr.nextDouble();
+                            
                             System.out.printf("Area of Rectangle is: %.2f\n", rectangleArea(length, width));
                             break;
                         
                         case 3:
                             System.out.print("Enter side: \n");
                             double side = scnr.nextDouble();
+                            
                             System.out.printf("Area of Square is: %.2f", squareArea(side));
                             break;
                         
+                        case 4:
+                            System.out.print("Enter radius: \n");
+                            double radiusOfCylinder = scnr.nextDouble();
+                            
+                            System.out.print("Enter height: \n");
+                            double heightOfCylinder = scnr.nextDouble();
+                            
+                            System.out.printf("Area of a Cylinder is: %.2f", cylinderArea(radiusOfCylinder, heightOfCylinder));
+                            break;
+                        case 5: 
+                            System.out.print("Enter radius: \n");
+                            double radiusOfCone = scnr.nextDouble();
+                            
+                            System.out.print("Enter height: \n");
+                            double heightOfCone = scnr.nextDouble();
+                            
+                            System.out.printf("Area of a Cone is: %.2f", coneArea(radiusOfCone, heightOfCone));
+                            break;
+                            
                         default:
                             System.out.print("Invalid");
                     }
@@ -115,6 +170,7 @@ public static void main(String[]args)
                             case 2: subtraction(a,b); break;
                             case 3: multiplication(a,b); break;
                             case 4: division(a,b); break;
+                            case 5: powerOf(a,b); break;
                     }
                 }
                 else
@@ -124,6 +180,25 @@ public static void main(String[]args)
                 break;
                 
                 case 3:
+                    System.out.print("Enter x: \n");
+                    double x = scnr.nextDouble();
+                    
+                    System.out.print("Enter base: \n");
+                    double base = scnr.nextDouble();
+                    
+                    System.out.printf("Log is: %.2f", naturalLog(x, base));
+                    break;
+                
+                case 4:
+                    System.out.print("Enter a: \n");
+                    double a = scnr.nextDouble();
+                    
+                    System.out.print("Enter b: \n");
+                    double b = scnr.nextDouble();
+                    
+                    System.out.printf("%.2f percent of %.2f is: %.2f",b,a, percentage(a,b));
+                    break;
+                case 5:
                     continueProgram = false;
                     
                     System.out.print("Thank you");
